@@ -1,0 +1,52 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="col-xl-8 py-5 px-md-5">
+    <div class="row pt-md-4">
+            {% for blog in cases %}
+            <div class="col-md-12">
+                <div class="blog-entry ftco-animate d-md-flex">
+                    <a href="{% url 'article_detail' blog.pk %}" class="img img-2" style="background-image: url({{ blog.header_image.url }});"></a>
+                    <div class="text text-2 pl-md-4">
+                        <h3 class="mb-2"><a href="{% url 'article_detail' blog.pk %}">{{ blog.title }}</a></h3>
+                        <div class="meta-wrap">
+                            <p class="meta">
+                                <span><i class="icon-calendar mr-2"></i>{{ blog.post_date }}</span>
+                                <span><a href="{% url 'category' blog.category|slugify %}"><i class="icon-folder-o mr-2"></i>{{ blog.category.name.title }}</a></span>
+                            </p>
+                        </div>
+                        <p class="mb-4">{{ blog.short_description }}</p>
+                        <p><a href="{% url 'article_detail' blog.pk %}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+    </div>
+    <div class="row">
+  <div class="col">
+    <div class="block-27">
+    {% if cases.has_other_pages %}
+      <ul>
+          {% if cases.has_previous %}
+        <li><a href="?page={{ cases.previous_page_number }}">&lt;</a></li>
+        {% endif %}
+        {% for i in cases.paginator.page_range %}
+        {% if cases.number == i %}
+        <li class="active"><span>{{ i }}</span></li>
+        {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if cases.has_next %}
+        <li><a href="?page={{ cases.next_page_number }}">&gt;</a></li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+{% include 'blog/right_sidebar.html' %}
+{% endblock %}

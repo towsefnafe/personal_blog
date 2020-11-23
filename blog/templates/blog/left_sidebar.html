@@ -1,0 +1,18 @@
+{% load static %}
+<aside id="colorlib-aside" role="complementary" class="js-fullheight">
+    <nav id="colorlib-main-menu" role="navigation">
+        <ul>
+            <li class="colorlib-active"><a href="{% url 'home' %}">Home</a></li>
+            {% for category in categories %}
+            <li><a href="{% url 'category' category.name|slugify %}">{{ category.name.title }}</a></li>
+            {% endfor %}
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="colorlib-footer">
+        <h1 id="colorlib-logo" class="mb-4"><a href="{% url 'home' %}" style="background-image: url({% static 'images/bg_1.jpg' %});">Andrea <span>Moore</span></a></h1>
+        
+    </div>
+</aside> <!-- END COLORLIB-ASIDE -->

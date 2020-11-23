@@ -1,0 +1,39 @@
+<div class="col-lg-4 sidebar ftco-animate bg-light pt-5 fadeInUp ftco-animated">
+	            <div class="sidebar-box pt-md-4">
+	              <form action="/search/" class="search-form">
+	                <div class="form-group">
+	                  <span class="icon icon-search"></span>
+	                  <input type="text" name='search' class="form-control" placeholder="Type a keyword and hit enter">
+	                </div>
+	              </form>
+	            </div>
+	            <div class="sidebar-box ftco-animate fadeInUp ftco-animated">
+	            	<h3 class="sidebar-heading">Categories</h3>
+	              <ul class="categories">
+					{% for category in categories %}
+	                <li><a href="{% url 'category' category.name|slugify %}">{{ category.name.title }} <span>({{ category.post__count }})</span></a></li>
+					{% endfor %}
+	              </ul>
+	            </div>
+
+	            <div class="sidebar-box ftco-animate fadeInUp ftco-animated">
+	              <h3 class="sidebar-heading">Latest Articles</h3>
+				  {% for latest_post in lastest_post_obj %}
+	              <div class="block-21 mb-4 d-flex">
+	                <a class="blog-img mr-4" style="background-image: url({{ latest_post.header_image.url }});"></a>
+	                <div class="text">
+	                  <h3 class="heading"><a href="{% url 'article_detail' latest_post.pk %}">{{ latest_post.title }}</a></h3>
+	                  <div class="meta">
+	                    <div><span class="icon-calendar"></span> {{ latest_post.post_date }}</div>
+	                    <div><a href="{% url 'category' latest_post.category|slugify %}"><span class="icon-person"></span> {{ latest_post.category.name.title }}</a></div>
+	                  </div>
+	                </div>
+	              </div>
+				  {% endfor %}
+	            </div>
+
+	            <div class="sidebar-box ftco-animate">
+	              <h3 class="sidebar-heading">About Author</h3>
+	              <p>{{ user.profile.bio }}</p>
+	            </div>
+	          </div>
